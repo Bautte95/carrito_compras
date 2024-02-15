@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+    <li class="breadcrumb-item active">Tables</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-user me-1"></i>
+        Listado Usuarios
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear nuevo</button>
+            </div>
+        </div>
+        <hr />
+        <table id="tabla_usuarios" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalNuevoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="nombreUsuario" class="form-label">Nombres del usuario</label>
+                    <input type="text" class="form-control" id="nombreUsuario">
+                </div>
+                <div class="mb-3">
+                    <label for="apellidoUsuario" class="form-label">Apellidos del usuario</label>
+                    <input type="text" class="form-control" id="apellidoUsuario">
+                </div>
+                <div class="mb-3">
+                    <label for="correoUsuario" class="form-label">Correo del usuario</label>
+                    <input type="email" class="form-control" id="correoUsuario" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Estado</label>
+                    <select id="estadoUsuario" class="form-select">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Crear usuario</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        const htmlActivo = '<span class="badge bg-success">Si</span>';
+        const htmlInactivo = '<span class="badge bg-danger">No</span>';
+        const btnEditar = '<button type="button" class="btn btn-primary btn-sm btn-editar"><i class="fa fa-pen"></i></button>';
+        const btnEliminar = '<button type="button" class="btn btn-danger btn-sm ms-2"><i class="fa fa-trash"></i></button>';
+
+        let tableData = $('#tabla_usuarios').DataTable({
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                url: '@Url.Action("ListadoUsuarios", "Home")',
+                type: 'GET',
+                dataType: 'json'
+            },
+            "columns": [
+                { "data": "Nombres" },
+                { "data": "Apellidos" },
+                { "data": "Correo" },
+                { "data": "Activo", "render": (value) => { return value == true ? htmlActivo : htmlInactivo } },
+                {
+                    "defaultContent": btnEditar + btnEliminar,
+                    "searchable": false,
+                    "orderable": false,
+                    "width": "90px"
+                }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            },
+        });
+
+        const abrirModal = (json) => {
+            if (json != null) {
+                $("#nombreUsuario").val(json.Nombres);
+                $("#apellidoUsuario").val(json.Apellidos);
+                $("#correoUsuario").val(json.Correo);
+                $("#estadoUsuario").val((json.Activo == true) ? "1" : "0");
+                console.log(json.Activo);
+            };
+
+            $("#modalNuevoUsuario").modal("show");
+        }
+
+        $("#tabla_usuarios tbody").on('click', '.btn-editar', function () {
+            let fila = $(this).closest("tr");
+            let dataResult = tableData.row(fila).data();
+            abrirModal(dataResult);
+        });
+    </script>
+}

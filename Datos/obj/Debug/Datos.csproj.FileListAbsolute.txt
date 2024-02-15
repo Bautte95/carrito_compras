@@ -1,0 +1,9 @@
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\bin\Debug\Datos.dll
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\bin\Debug\Datos.pdb
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\bin\Debug\Entidad.dll
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\bin\Debug\Entidad.pdb
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\obj\Debug\Datos.csproj.AssemblyReference.cache
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\obj\Debug\Datos.csproj.CoreCompileInputs.cache
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\obj\Debug\Datos.csproj.CopyComplete
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\obj\Debug\Datos.dll
+C:\Users\programador.tic\Documents\Proyectos Dimas\ASPNET\carritoWeb\Datos\obj\Debug\Datos.pdb
